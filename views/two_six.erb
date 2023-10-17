@@ -7,6 +7,13 @@
 <body>
   <h1>2d6</h1>
 
-  <p><%= @outcome %></p>
+  <ul>
+  <% @rolls.each do |a_roll| %>
+    <li>
+      <%= a_roll %>
+    </li>
+  <% end %>
+  </ul>
+  <p>The sum is <%= @sum %><p>
 </body>
 </html>

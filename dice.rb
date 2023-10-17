@@ -7,33 +7,41 @@ BetterErrors.application_root = __dir__
 BetterErrors::Middleware.allow_ip!('0.0.0.0/0.0.0.0')
 
 get("/") do
-  erb(:home, :layout => :home)
+  erb(:home)
 end
 
 get("/dice/2/6") do
-  first_die = rand(1..6)
-  second_die = rand(1..6)
-  sum = first_die + second_die
-	
-  @outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
-	
+  @rolls = []
+  @sum = 0
+
+  2.times do
+    die = rand(1..6)
+    @rolls.push(die)
+  end
+	@rolls.each do |dice_roll|
+    @sum += dice_roll
+  end
   erb(:two_six)
 end
 
 get("/dice/2/10") do
-  first_die = rand(1..10)
-  second_die = rand(1..10)
-  sum = first_die + second_die
+  @rolls = []
+  @sum = 0
 
-  @outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}"
-
-  erb(:two_ten, { :layout => :wrapper })
+  2.times do
+    die = rand(1..20)
+    @rolls.push(die)
+  end
+  @rolls.each do |dice_roll|
+    @sum += dice_roll
+  end
+  erb(:two_ten)
 end
 
 get("/dice/1/20") do
   @die = rand(1..20)
 
-  @outcome = "You rolled a #{@die}"
+  @outcome = "#{@die}"
 
   erb(:one_twenty)
 end
